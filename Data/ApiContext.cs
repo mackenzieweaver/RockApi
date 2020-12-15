@@ -31,7 +31,6 @@ namespace RockApi.Data
             using (var cmd = new NpgsqlCommand("getalluserdata", connString))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-
                 using (var reader = cmd.ExecuteReader())
                 {
                     var dataTable = new DataTable();
@@ -40,9 +39,9 @@ namespace RockApi.Data
                     if (dataTable.Rows.Count > 0)
                     {
                         var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
-
+                        var deserializedMyObjects = (List<FPUser>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<FPUser>));
                         //diff list type
-                        allHouseHolds.AddRange((List<FPUser>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<FPUser>)));
+                        allHouseHolds.AddRange(deserializedMyObjects);
                     }
                 }
                 connString.Close();
