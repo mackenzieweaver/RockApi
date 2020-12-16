@@ -38,7 +38,7 @@ namespace RockApi
                 options.UseNpgsql(DataHelper.GetConnectionString(Configuration)));
 
             services.AddControllers();
-
+            Console.WriteLine("");
             services.AddSwaggerGen(c => 
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -55,7 +55,7 @@ namespace RockApi
                 });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, $"app/{xmlFile}");
                 c.IncludeXmlComments(xmlPath);
             });
         }

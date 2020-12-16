@@ -8,11 +8,21 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Users\mackn\source\repos\RockApi\RockApi.xml</DocumentationFile>
+    <DocumentationFile>C:\Users\mackn\source\repos\RockApi\app\RockApi.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Controllers\WeatherForecastController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="app\RockApi.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="app\RockApi.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
