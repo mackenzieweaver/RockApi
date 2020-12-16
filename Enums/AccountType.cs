@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace RockApi.Enums
 {
+    /// <summary>
+    /// Either Checking or Savings
+    /// </summary>
     public enum AccountType
     {
         Checking,

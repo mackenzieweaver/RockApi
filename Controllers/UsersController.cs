@@ -23,6 +23,10 @@ namespace RockApi.Controllers
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// A user extends microsoft's identity user and adds a few properties such as first and last name, as well as a display name.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<FPUser> Get()
         {

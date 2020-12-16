@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace RockApi.Models
 {
+    /// <summary>
+    /// Snapshot of a bank account's balance at the end of a day if new transactions were made.
+    /// </summary>
     public class History
     {
         public int Id { get; set; }

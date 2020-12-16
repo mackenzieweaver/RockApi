@@ -6,6 +6,9 @@ using RockApi.Enums;
 
 namespace RockApi.Models
 {
+    /// <summary>
+    /// Belongs to a household, created by a user.
+    /// </summary>
     public class BankAccount
     {
         public int Id { get; set; }

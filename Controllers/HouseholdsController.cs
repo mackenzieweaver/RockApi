@@ -23,6 +23,10 @@ namespace RockApi.Controllers
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// A household is an umbrella group which contains users, categories, items, and transactions.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<HouseHold> Get()
         {

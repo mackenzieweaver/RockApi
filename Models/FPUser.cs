@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace RockApi.Models
 {
+    /// <summary>
+    /// Extends (inherits from) Microsoft's IdentityUser and adds the properties for first and last name, and an avatar.
+    /// </summary>
     public class FPUser : IdentityUser
     {
         public string FirstName { get; set; }

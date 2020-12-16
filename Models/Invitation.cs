@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace RockApi.Models
 {
+    /// <summary>
+    /// Emails sent in order to add someone to your household.
+    /// </summary>
     public class Invitation
     {
         public int Id { get; set; }

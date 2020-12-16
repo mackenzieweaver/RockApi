@@ -6,6 +6,9 @@ using RockApi.Enums;
 
 namespace RockApi.Models
 {
+    /// <summary>
+    /// The nucleas that the application revolves around. Categories and their item amounts are based on the total spent on them from transaction records.
+    /// </summary>
     public class Transaction
     {
         public int Id { get; set; }

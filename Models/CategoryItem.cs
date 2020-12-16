@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace RockApi.Models
 {
+    /// <summary>
+    /// Belongs to a category, effectively creating a budget by listing items within a group.
+    /// </summary>
     public class CategoryItem
     {
         public int Id { get; set; }

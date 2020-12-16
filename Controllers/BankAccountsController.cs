@@ -23,6 +23,10 @@ namespace RockApi.Controllers
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// Bank accounts are grouped by households, not individuals.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<BankAccount> Get()
         {

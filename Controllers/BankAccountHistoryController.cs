@@ -11,18 +11,20 @@ using System.Threading.Tasks;
 namespace RockApi.Controllers
 {
     [Route("[controller]")]
-    [ApiController]
+    [ApiController]    
     public class BankAccountHistoryController : ControllerBase
     {
         private readonly ApiContext _context;
         private readonly IConfiguration _configuration;
-
         public BankAccountHistoryController(ApiContext context, IConfiguration configuration)
         {
             _context = context;
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// There is one Bank Account History record per day, per account, minimum.
+        /// </summary>
         [HttpGet]
         public IEnumerable<History> Get()
         {

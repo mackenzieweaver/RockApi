@@ -23,6 +23,10 @@ namespace RockApi.Controllers
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// Invitations are records (emails) that are sent to others by the head of the household.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<Invitation> Get()
         {

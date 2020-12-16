@@ -23,6 +23,10 @@ namespace RockApi.Controllers
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// Transactions are either of type withdrawal or deposit, and track how much you spend on an item within a budget (category).
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<Transaction> Get()
         {

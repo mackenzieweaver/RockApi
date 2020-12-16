@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace RockApi.Enums
 {
+    /// <summary>
+    /// Either a Deposit or Withdrawal
+    /// </summary>
     public enum TransactionType
     {
         Withdrawal,

@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RockApi</name>
+    </assembly>
+    <members>
+        <member name="M:RockApi.Controllers.BankAccountHistoryController.Get">
+            <summary>
+            There is one Bank Account History record per day, per account, minimum.
+            </summary>
+        </member>
+        <member name="M:RockApi.Controllers.BankAccountsController.Get">
+            <summary>
+            Bank accounts are grouped by households, not individuals.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RockApi.Controllers.CategoriesController.Get">
+            <summary>
+            A budget group
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RockApi.Controllers.CategoryItemsController.Get">
+            <summary>
+            Specific items within a budget group (category).
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RockApi.Controllers.HouseholdsController.Get">
+            <summary>
+            A household is an umbrella group which contains users, categories, items, and transactions.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RockApi.Controllers.InvitationsController.Get">
+            <summary>
+            Invitations are records (emails) that are sent to others by the head of the household.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RockApi.Controllers.NotificationsController.Get">
+            <summary>
+            Notifications are records (emails) that are sent to the head of household.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RockApi.Controllers.TransactionsController.Get">
+            <summary>
+            Transactions are either of type withdrawal or deposit, and track how much you spend on an item within a budget (category).
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RockApi.Controllers.UsersController.Get">
+            <summary>
+            A user extends microsoft's identity user and adds a few properties such as first and last name, as well as a display name.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:RockApi.Enums.AccountType">
+            <summary>
+            Either Checking or Savings
+            </summary>
+        </member>
+        <member name="T:RockApi.Enums.TransactionType">
+            <summary>
+            Either a Deposit or Withdrawal
+            </summary>
+        </member>
+        <member name="T:RockApi.Models.BankAccount">
+            <summary>
+            Belongs to a household, created by a user.
+            </summary>
+        </member>
+        <member name="T:RockApi.Models.Category">
+            <summary>
+            Belongs to a household and represents a budget group.
+            </summary>
+        </member>
+        <member name="T:RockApi.Models.CategoryItem">
+            <summary>
+            Belongs to a category, effectively creating a budget by listing items within a group.
+            </summary>
+        </member>
+        <member name="T:RockApi.Models.FPUser">
+            <summary>
+            Extends (inherits from) Microsoft's IdentityUser and adds the properties for first and last name, and an avatar.
+            </summary>
+        </member>
+        <member name="T:RockApi.Models.History">
+            <summary>
+            Snapshot of a bank account's balance at the end of a day if new transactions were made.
+            </summary>
+        </member>
+        <member name="T:RockApi.Models.HouseHold">
+            <summary>
+            Has a name and greeting message. "Houses" members, bank accounts, categories, items, and transactions.
+            </summary>
+        </member>
+        <member name="T:RockApi.Models.Invitation">
+            <summary>
+            Emails sent in order to add someone to your household.
+            </summary>
+        </member>
+        <member name="T:RockApi.Models.Notification">
+            <summary>
+            Alerts the head of household of important events.
+            </summary>
+        </member>
+        <member name="T:RockApi.Models.Transaction">
+            <summary>
+            The nucleas that the application revolves around. Categories and their item amounts are based on the total spent on them from transaction records.
+            </summary>
+        </member>
+    </members>
+</doc>

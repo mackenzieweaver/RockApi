@@ -23,6 +23,10 @@ namespace RockApi.Controllers
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// Specific items within a budget group (category).
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<CategoryItem> Get()
         {

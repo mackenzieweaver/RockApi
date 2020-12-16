@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace RockApi.Models
 {
+    /// <summary>
+    /// Alerts the head of household of important events.
+    /// </summary>
     public class Notification
     {
         public int Id { get; set; }

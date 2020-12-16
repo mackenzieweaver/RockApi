@@ -23,6 +23,10 @@ namespace RockApi.Controllers
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// Notifications are records (emails) that are sent to the head of household.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<Notification> Get()
         {
