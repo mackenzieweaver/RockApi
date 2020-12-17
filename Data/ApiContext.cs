@@ -28,7 +28,7 @@ namespace RockApi.Data
             var connection = new NpgsqlConnection(DataHelper.GetConnectionString(_configuration));
             connection.Open();
 
-            // get name of function
+            // build command to call PgAdmin function
             using var cmd = new NpgsqlCommand(funcName, connection)
             {
                 CommandType = CommandType.StoredProcedure
