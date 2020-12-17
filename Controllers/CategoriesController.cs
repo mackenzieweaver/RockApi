@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using RockApi.Data;
 using RockApi.Models;
 using System;
@@ -30,7 +31,8 @@ namespace RockApi.Controllers
         [HttpGet]
         public IEnumerable<Category> Get()
         {
-            return _context.GetAllCategories(_configuration);
+            var rawData = _context.CallPostgresFunction("getallcategorydata");
+            return (List<Category>)JsonConvert.DeserializeObject(rawData, typeof(List<Category>));
         }
     }
 }

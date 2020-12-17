@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using RockApi.Data;
 using RockApi.Models;
 using System;
@@ -30,7 +31,8 @@ namespace RockApi.Controllers
         [HttpGet]
         public IEnumerable<Notification> Get()
         {
-            return _context.GetAllNotifications(_configuration);
+            var rawData = _context.CallPostgresFunction("getallnotificationdata");
+            return (List<Notification>)JsonConvert.DeserializeObject(rawData, typeof(List<Notification>));
         }
     }
 }

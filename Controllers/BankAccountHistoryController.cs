@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using RockApi.Data;
 using RockApi.Models;
 using System;
@@ -28,7 +29,8 @@ namespace RockApi.Controllers
         [HttpGet]
         public IEnumerable<History> Get()
         {
-            return _context.GetAllBankAccountHistory(_configuration);
+            var rawData = _context.CallPostgresFunction("getallbankaccounthistory");
+            return (List<History>)JsonConvert.DeserializeObject(rawData, typeof(List<History>));
         }
     }
 }

@@ -14,297 +14,34 @@ namespace RockApi.Data
 {
     public class ApiContext : DbContext
     {
-        public ApiContext(DbContextOptions<ApiContext> options) 
+        // constructor
+        private readonly IConfiguration _configuration;
+        public ApiContext(DbContextOptions<ApiContext> options, IConfiguration configuration) 
             : base(options)
         {
+            _configuration = configuration;
         }
 
-        public List<FPUser> GetAllUsers(IConfiguration configuration)
+        // api methods come from PgAdmin functions - this mehtod is called from controllers
+        public string CallPostgresFunction(string funcName)
         {
-            var connString = new NpgsqlConnection(DataHelper.GetConnectionString(configuration));
-            //var connString = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection"));
-            connString.Open();
+            var connection = new NpgsqlConnection(DataHelper.GetConnectionString(_configuration));
+            connection.Open();
 
-            // diff list type
-            var allHouseHolds = new List<FPUser>();
-            //diff function name
-            using (var cmd = new NpgsqlCommand("getalluserdata", connString))
+            // get name of function
+            using var cmd = new NpgsqlCommand(funcName, connection)
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                using (var reader = cmd.ExecuteReader())
-                {
-                    var dataTable = new DataTable();
-                    dataTable.Load(reader);
+                CommandType = CommandType.StoredProcedure
+            };
 
-                    if (dataTable.Rows.Count > 0)
-                    {
-                        var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
-                        var deserializedMyObjects = (List<FPUser>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<FPUser>));
-                        //diff list type
-                        allHouseHolds.AddRange(deserializedMyObjects);
-                    }
-                }
-                connString.Close();
-            }
+            // execute query
+            using var reader = cmd.ExecuteReader();
+            var dataTable = new DataTable();
+            dataTable.Load(reader);
 
-            return allHouseHolds;
-        }
-
-        // diff list type
-        public List<HouseHold> GetAllHouseholds(IConfiguration configuration)
-        {
-            var connString = new NpgsqlConnection(DataHelper.GetConnectionString(configuration));
-            //var connString = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection"));
-            connString.Open();
-
-            // diff list type
-            var allHouseHolds = new List<HouseHold>();
-            //diff function name
-            using (var cmd = new NpgsqlCommand("getallhouseholddata", connString))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                using(var reader = cmd.ExecuteReader())
-                {
-                    var dataTable = new DataTable();
-                    dataTable.Load(reader);
-
-                    if(dataTable.Rows.Count > 0)
-                    {
-                        var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
-
-                        //diff list type
-                        allHouseHolds.AddRange((List<HouseHold>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<HouseHold>)));
-                    }
-                }
-                connString.Close();
-            }
-
-            return allHouseHolds;
-        }
-
-        public List<BankAccount> GetAllBankAccounts(IConfiguration configuration)
-        {
-            var connString = new NpgsqlConnection(DataHelper.GetConnectionString(configuration));
-            //var connString = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection"));
-            connString.Open();
-
-            // diff list type
-            var allHouseHolds = new List<BankAccount>();
-            //diff function name
-            using (var cmd = new NpgsqlCommand("getallbankaccountdata", connString))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                using (var reader = cmd.ExecuteReader())
-                {
-                    var dataTable = new DataTable();
-                    dataTable.Load(reader);
-
-                    if (dataTable.Rows.Count > 0)
-                    {
-                        var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
-
-                        //diff list type
-                        allHouseHolds.AddRange((List<BankAccount>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<BankAccount>)));
-                    }
-                }
-                connString.Close();
-            }
-
-            return allHouseHolds;
-        }
-
-        public List<History> GetAllBankAccountHistory(IConfiguration configuration)
-        {
-            var connString = new NpgsqlConnection(DataHelper.GetConnectionString(configuration));
-            //var connString = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection"));
-            connString.Open();
-
-            // diff list type
-            var allHouseHolds = new List<History>();
-            //diff function name
-            using (var cmd = new NpgsqlCommand("getallbankaccounthistory", connString))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                using (var reader = cmd.ExecuteReader())
-                {
-                    var dataTable = new DataTable();
-                    dataTable.Load(reader);
-
-                    if (dataTable.Rows.Count > 0)
-                    {
-                        var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
-
-                        //diff list type
-                        allHouseHolds.AddRange((List<History>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<History>)));
-                    }
-                }
-                connString.Close();
-            }
-
-            return allHouseHolds;
-        }
-
-        public List<Category> GetAllCategories(IConfiguration configuration)
-        {
-            var connString = new NpgsqlConnection(DataHelper.GetConnectionString(configuration));
-            //var connString = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection"));
-            connString.Open();
-
-            // diff list type
-            var allHouseHolds = new List<Category>();
-            //diff function name
-            using (var cmd = new NpgsqlCommand("getallcategorydata", connString))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                using (var reader = cmd.ExecuteReader())
-                {
-                    var dataTable = new DataTable();
-                    dataTable.Load(reader);
-
-                    if (dataTable.Rows.Count > 0)
-                    {
-                        var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
-
-                        //diff list type
-                        allHouseHolds.AddRange((List<Category>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<Category>)));
-                    }
-                }
-                connString.Close();
-            }
-
-            return allHouseHolds;
-        }
-
-        public List<CategoryItem> GetAllCategoryItems(IConfiguration configuration)
-        {
-            var connString = new NpgsqlConnection(DataHelper.GetConnectionString(configuration));
-            //var connString = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection"));
-            connString.Open();
-
-            // diff list type
-            var allHouseHolds = new List<CategoryItem>();
-            //diff function name
-            using (var cmd = new NpgsqlCommand("getallcategoryitemdata", connString))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                using (var reader = cmd.ExecuteReader())
-                {
-                    var dataTable = new DataTable();
-                    dataTable.Load(reader);
-
-                    if (dataTable.Rows.Count > 0)
-                    {
-                        var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
-
-                        //diff list type
-                        allHouseHolds.AddRange((List<CategoryItem>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<CategoryItem>)));
-                    }
-                }
-                connString.Close();
-            }
-
-            return allHouseHolds;
-        }
-
-        public List<Invitation> GetAllInvitations(IConfiguration configuration)
-        {
-            var connString = new NpgsqlConnection(DataHelper.GetConnectionString(configuration));
-            //var connString = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection"));
-            connString.Open();
-
-            // diff list type
-            var allHouseHolds = new List<Invitation>();
-            //diff function name
-            using (var cmd = new NpgsqlCommand("getallinvitationdata", connString))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                using (var reader = cmd.ExecuteReader())
-                {
-                    var dataTable = new DataTable();
-                    dataTable.Load(reader);
-
-                    if (dataTable.Rows.Count > 0)
-                    {
-                        var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
-
-                        //diff list type
-                        allHouseHolds.AddRange((List<Invitation>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<Invitation>)));
-                    }
-                }
-                connString.Close();
-            }
-
-            return allHouseHolds;
-        }
-
-        public List<Notification> GetAllNotifications(IConfiguration configuration)
-        {
-            var connString = new NpgsqlConnection(DataHelper.GetConnectionString(configuration));
-            //var connString = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection"));
-            connString.Open();
-
-            // diff list type
-            var allHouseHolds = new List<Notification>();
-            //diff function name
-            using (var cmd = new NpgsqlCommand("getallnotificationdata", connString))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                using (var reader = cmd.ExecuteReader())
-                {
-                    var dataTable = new DataTable();
-                    dataTable.Load(reader);
-
-                    if (dataTable.Rows.Count > 0)
-                    {
-                        var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
-
-                        //diff list type
-                        allHouseHolds.AddRange((List<Notification>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<Notification>)));
-                    }
-                }
-                connString.Close();
-            }
-
-            return allHouseHolds;
-        }
-
-        public List<Transaction> GetAllTransactions(IConfiguration configuration)
-        {
-            var connString = new NpgsqlConnection(DataHelper.GetConnectionString(configuration));
-            //var connString = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection"));
-            connString.Open();
-
-            // diff list type
-            var allHouseHolds = new List<Transaction>();
-            //diff function name
-            using (var cmd = new NpgsqlCommand("getalltransactiondata", connString))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                using (var reader = cmd.ExecuteReader())
-                {
-                    var dataTable = new DataTable();
-                    dataTable.Load(reader);
-
-                    if (dataTable.Rows.Count > 0)
-                    {
-                        var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
-
-                        //diff list type
-                        allHouseHolds.AddRange((List<Transaction>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<Transaction>)));
-                    }
-                }
-                connString.Close();
-            }
-
-            return allHouseHolds;
+            // returns either serialized json or empty string
+            connection.Close();
+            return dataTable.Rows.Count > 0 ? JsonConvert.SerializeObject(dataTable) : string.Empty;
         }
     }
 }

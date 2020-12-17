@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RockApi.Models;
+using Newtonsoft.Json;
 
 namespace RockApi.Controllers
 {
@@ -30,7 +31,8 @@ namespace RockApi.Controllers
         [HttpGet]
         public IEnumerable<BankAccount> Get()
         {
-            return _context.GetAllBankAccounts(_configuration);
+            var rawData = _context.CallPostgresFunction("getallbankaccountdata");
+            return (List<BankAccount>)JsonConvert.DeserializeObject(rawData, typeof(List<BankAccount>));
         }
     }
 }
